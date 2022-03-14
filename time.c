@@ -23,8 +23,6 @@ struct timespec current_Time;
 long elapsed_Seconds;
 long elapsed_NanoSeconds;
 
-
-
 static struct Time {
     long sec;
     long nano_sec;
