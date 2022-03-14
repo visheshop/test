@@ -36,12 +36,13 @@ int Open_Proc(struct inode *proc_inode, struct file *proc_file) {
     
     msg1 = kmalloc(sizeof(char) * STRING_LENGTH, __GFP_RECLAIM | __GFP_IO | __GFP_FS);
     msg2 = kmalloc(sizeof(char) * STRING_LENGTH, __GFP_RECLAIM | __GFP_IO | __GFP_FS);
-    if (msg1 == NULL || msg2 == NULL) {
-        printk(KERN_WARNING "Error -- could not allocate memory for the given string.");
+    if (msg1 || msg2 == NULL) {
+        printk(KERN_WARNING "Error -- could not allocate memory. ");
 
         return -ENOMEM;
     }
-    
+    if (current_time != 0)
+    {
     current_Time = current_kernel_time();
     sprintf(msg1, "Current time : %ld.%ld\n", current_Time.tv_sec, current_Time.tv_nsec);
 
