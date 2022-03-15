@@ -5,18 +5,15 @@
 #include <linux/uaccess.h>
 #include <linux/string.h>
 #include <linux/time.h>
-
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("Display the current time & the amount of time that's passed since the last call on each process read.");
-
 #define MODULE_NAME "my_timer"
 #define MODULE_PERMISSION 0644
 #define MODULE_PARENT NULL
 #define STRING_LENGTH 256
 
 static struct file_operations FO;
-static char *msg1;
-static char *msg2;
+static char *msg1, msg2;
 static int read_Proc;
 static int proc_Read_Number = 0;
 struct timespec current_Time;
@@ -33,11 +30,14 @@ int Open_Proc(struct inode *proc_inode, struct file *proc_file) {
     read_Proc = 1;
 
     proc_Read_Number++;
+    e1= kmalloc(sizeof(char);
+    e2= kmalloc(sizeof(char);
+     
+    msg1 = e1* STRING_LENGTH, __GFP_RECLAIM | __GFP_IO | __GFP_FS);
+    msg2 = e2* STRING_LENGTH, __GFP_RECLAIM | __GFP_IO | __GFP_FS);
     
-    msg1 = kmalloc(sizeof(char) * STRING_LENGTH, __GFP_RECLAIM | __GFP_IO | __GFP_FS);
-    msg2 = kmalloc(sizeof(char) * STRING_LENGTH, __GFP_RECLAIM | __GFP_IO | __GFP_FS);
     if (msg1 || msg2 == NULL) {
-        printk(KERN_WARNING "Error -- could not allocate memory. ");
+        printk(KERN_WARNING "Error -- ");
 
         return -ENOMEM;
     }
@@ -45,22 +45,23 @@ int Open_Proc(struct inode *proc_inode, struct file *proc_file) {
     {
     current_Time = current_kernel_time();
     sprintf(msg1, "Current time : %ld.%ld\n", current_Time.tv_sec, current_Time.tv_nsec);
-
-    if (current_Time.tv_nsec - time.nano_sec < 0) {
+nano-sec= (current_Time.tv_nsec - time.nano_sec)
+    if (nano-sec < 0) {
         elapsed_Seconds = current_Time.tv_sec - time.sec - 1;
-        elapsed_NanoSeconds = current_Time.tv_nsec - time.nano_sec + 1000000000;
+        elapsed_NanoSeconds = nano-sec + 1000000000;
     } else {
         elapsed_Seconds = current_Time.tv_sec - time.sec;
-        elapsed_NanoSeconds = current_Time.tv_nsec - time.nano_sec;
+        elapsed_NanoSeconds = nano-sec;
     }
-
+cu
     if (proc_Read_Number > 1) {
         sprintf(msg2, "Elapsed time : %ld.%ld\n", elapsed_Seconds, elapsed_NanoSeconds);
         strcat(msg1, msg2);
     }
 
-    time.sec = current_Time.tv_sec;
-    time.nano_sec = current_Time.tv_nsec;
+    time.sec = nano-sec - time.nano_sec;
+        
+    time.nano_sec = nano-sec - time.nano_sec;
     
     return 0;
 }
